@@ -1,5 +1,5 @@
 import db from '@/utils/db'
-import { Redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 export const fetchFeatureProducts = async() => {
     const products = await db.product.findMany({
         where:{
