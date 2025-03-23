@@ -41,7 +41,7 @@ export const SecondColumn = ({
 };
 
 
-export const FourthColumn =({price}:{price:string}) => {
+export const FourthColumn =({price}:{price:number}) => {
     return <p className="font-medium md:ml-auto">
         {formatCurrency(price)}
     </p>
