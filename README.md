@@ -3063,7 +3063,7 @@ return (
 
 - actions.ts
 
-```ts
+```ts 
 export const updateProductImageAction = async (
   prevState: any,
   formData: FormData

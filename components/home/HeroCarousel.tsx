@@ -12,7 +12,7 @@ const HeroCarousel = () => {
       <Carousel>
         <CarouselContent>
             {carouselImages.map((image,index)=>{
-                return <CarouselItem>
+                return <CarouselItem key={index}>
                     <Card>
                        <CardContent className='p-2'>
                         <Image src={image} alt='hero' className='w-full h-[24rem] rounded-medium object-cover'/>

@@ -1,15 +1,21 @@
 import BreadCrumbs from "../../../components/single-product/BreadCrumb";
-import { fetchSingleProduct } from "../../../utils/action";
+import { fetchSingleProduct, findExistingReviews } from "../../../utils/action";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/format";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import AddToCart from "@/components/single-product/AddToCart";
 import ProductRating from "@/components/single-product/ProductRating";
+import SubmitReview from "@/components/reviews/SubmitReview";
+import ProductReviews from "@/components/reviews/ProductReviews";
+import { auth
 
+ } from "@clerk/nextjs/server";
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
   const product = await fetchSingleProduct(params.id);
   const { name, image, company, description, price } = product;
   const dollarsAmount = formatCurrency(price);
+  const {userId} = auth()
+  const reviewDoesNotExist = userId && !(await findExistingReviews(userId, product.id))
   return (
     <section>
       <BreadCrumbs name={name} />
@@ -37,6 +43,13 @@ const SingleProductPage = async ({ params }: { params: { id: string } }) => {
             <p className="mt-6 leading-8 text-muted-foreground">{description}</p>
             <AddToCart productId={params.id}/>
         </div>
+      </div>
+      <div className="mt-8">
+      <ProductReviews productId = {params.id}/>
+      {
+        reviewDoesNotExist && <SubmitReview productId={params.id} />
+      }
+      
       </div>
     </section>
   );
